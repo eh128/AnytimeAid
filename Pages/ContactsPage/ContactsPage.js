@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import NavBar from "../../Components/NavBar";
 import Button from "../../Components/Button";
 import PageTitle from "../../Components/Contacts/PageTitle";
-import Contact from "../../Components/Contacts/Contact";
 import Accordion from "react-native-collapsible/Accordion";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntIcon from "react-native-vector-icons/AntDesign";
@@ -53,30 +52,26 @@ const data = [
     phoneNumber: "+12223334444",
     address: "8893 smt street, Toronto ON",
   },
-  {
-    name: "Happy",
-    phoneNumber: "+12223334444",
-    address: "8893 smt street, Toronto ON",
-  },
-  {
-    name: "Happy",
-    phoneNumber: "+12223334444",
-    address: "8893 smt street, Toronto ON",
-  },
-  {
-    name: "Happy",
-    phoneNumber: "+12223334444",
-    address: "8893 smt street, Toronto ON",
-  },
-  {
-    name: "Happy",
-    phoneNumber: "+12223334444",
-    address: "8893 smt street, Toronto ON",
-  },
 ];
 
 export default function ContactsPage({ navigation }) {
   const [expanded, setExpanded] = useState([]);
+  const [verified, setVerified] = useState(false);
+  useEffect(() => {
+    if (!verified)
+      Alert.alert(
+        "Verification Required",
+        "Please verify your phone number to access your contacts list.",
+        [
+          {
+            text: "Back",
+            onPress: () => navigation.navigate("CameraPage"),
+            style: "cancel",
+          },
+          { text: "Verify", onPress: () => navigation.navigate("PhoneNumber") },
+        ]
+      );
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -104,15 +99,6 @@ export default function ContactsPage({ navigation }) {
           renderAsFlatList={true}
         />
       </View>
-      {/* <View>
-        {data.map((contact) => (
-          <Contact
-            name={contact.name}
-            phoneNumber={contact.phoneNumber}
-            address={contact.address}
-          />
-        ))}
-      </View> */}
       <View style={styles.buttons}>
         <Button
           onPress={() => console.log("pressed!!!!!!")}

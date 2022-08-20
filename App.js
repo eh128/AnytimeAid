@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CameraPage from "./Pages/CameraPage/CameraPage";
 import ContactsPage from "./Pages/ContactsPage/ContactsPage";
 import MapPage from "./Pages/MapPage/MapPage";
+import PhoneNumber from "./Pages/ContactsPage/PhoneNumber";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,11 @@ export default function App() {
         <Stack.Screen
           name="MapPage"
           component={MapPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PhoneNumber"
+          component={PhoneNumber}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
