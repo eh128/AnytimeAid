@@ -67,6 +67,7 @@ def get_instructions():
     instructions = return_instruction_page(keywords)
     for regex in removed_words:
         instructions = instructions.replace(regex, '')
+    driver.close()
     print(instructions)
 
 
