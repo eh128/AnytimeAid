@@ -1,11 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import NavBar from "../../Components/NavBar";
 
-export default function MapPage() {
+export default function MapPage({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>Map Page</Text>
-      <StatusBar style="auto" />
+      <NavBar navigation={navigation} />
     </View>
   );
 }
