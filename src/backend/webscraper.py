@@ -70,7 +70,7 @@ def get_instructions():
     driver.close()
     print(instructions)
 
-
+get_instructions()
 
 
 

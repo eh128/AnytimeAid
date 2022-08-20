@@ -40,8 +40,8 @@ def emergency_contacts():
 def emergency_contacts():
     # I expect the input data to be in a JSON format
     req = request.json
-    req_name = req["name"]
-    user_info = get_user_info(req_name)
+    req_phone_number = req["telephone number"]
+    user_info = get_user_info(req_phone_number)
 
     return user_info
 
@@ -50,8 +50,8 @@ def emergency_contacts():
 def emergency_contacts():
     # I expect the input data to be in a JSON format
     req = request.json
-    req_name = req["name"]
-    delete_user(req_name)
+    req_phone_number = req["telephone number"]
+    delete_user(req_phone_number)
 
     return "Successfully deleted user info"
 

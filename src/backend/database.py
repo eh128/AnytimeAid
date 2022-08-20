@@ -43,11 +43,11 @@ def create_new_user(user_info):
     collection.insert_one(user_info)
 
 
-def get_user_info(user_name):
-    user_info = collection.find_one({"user.name": { "$eq": user_name}})
+def get_user_info(user_phone_number):
+    user_info = collection.find_one({"user.phone number": { "$eq": user_phone_number}})
     return user_info
 
 
-def delete_user(user_name):
-    collection.deleteOne({"user.name": user_name})
+def delete_user(user_phone_number):
+    collection.deleteOne({"user.phone number": user_phone_number})
 
