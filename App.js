@@ -8,8 +8,8 @@ import MapPage from "./Pages/MapPage/MapPage";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Helloa</Text>
-      <StatusBar style="auto" />
+      <CameraPage />
+      <Text>router flux... plz help... gn</Text>
     </View>
   );
 }
