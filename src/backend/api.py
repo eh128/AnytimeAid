@@ -21,7 +21,7 @@ def instructions():
 
 
 @app.route('/emergency-contacts-create', methods=["POST"])
-def emergency_contacts():
+def emergency_contacts_create():
     # I expect the input data to be in a JSON format
     req = request.json
     create_new_user(req)
@@ -29,7 +29,7 @@ def emergency_contacts():
 
 
 @app.route('/emergency-contacts-update', methods=["POST"])
-def emergency_contacts():
+def emergency_contacts_update():
     # I expect the input data to be in a JSON format
     req = request.json
     update_user_info(req)
@@ -37,7 +37,7 @@ def emergency_contacts():
 
 
 @app.route('/emergency-contacts-fetch-info', methods=["GET"])
-def emergency_contacts():
+def emergency_contacts_fetch():
     # I expect the input data to be in a JSON format
     req = request.json
     req_phone_number = req["telephone number"]
@@ -47,7 +47,7 @@ def emergency_contacts():
 
 
 @app.route('/emergency-contacts-delete-user', methods=["GET"])
-def emergency_contacts():
+def emergency_contacts_delete():
     # I expect the input data to be in a JSON format
     req = request.json
     req_phone_number = req["telephone number"]
@@ -56,8 +56,8 @@ def emergency_contacts():
     return "Successfully deleted user info"
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
 
 
 
