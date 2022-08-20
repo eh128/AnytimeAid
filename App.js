@@ -7,6 +7,7 @@ import CameraPage from "./Pages/CameraPage/CameraPage";
 import ContactsPage from "./Pages/ContactsPage/ContactsPage";
 import MapPage from "./Pages/MapPage/MapPage";
 import PhoneNumber from "./Pages/ContactsPage/PhoneNumber";
+import NewContact from "./Pages/ContactsPage/NewContact";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,11 @@ export default function App() {
         <Stack.Screen
           name="PhoneNumber"
           component={PhoneNumber}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NewContact"
+          component={NewContact}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -14,6 +14,14 @@ const numbers = [
 export default function PhoneNumber({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState("+1");
   const [displayNumber, setDisplayNumber] = useState("+1");
+  const [code, setCode] = useState("");
+  const [codeDisplay, setCodeDisplay] = useState("");
+  const [firstPage, setFirstPage] = useState(true);
+  useEffect(() => {
+    if (code.length > 6) setCode(code.substring(0, code.length - 1));
+    setCodeDisplay(code.slice(0, 3) + " " + code.slice(3, 6));
+    console.log(code);
+  }, [code]);
   useEffect(() => {
     if (phoneNumber.length <= 1) {
       setPhoneNumber(displayNumber.trim());
@@ -32,7 +40,8 @@ export default function PhoneNumber({ navigation }) {
         phoneNumber.slice(8, 12)
     );
   }, [phoneNumber]);
-  return (
+
+  return firstPage ? (
     <View style={[styles.container, { backgroundColor: "#FBDDDD" }]}>
       <PageTitle text="Verify Phone Number" />
 
@@ -82,6 +91,65 @@ export default function PhoneNumber({ navigation }) {
           height={55}
           fontSize={22}
           text={"Send Verification Code"}
+          onPress={() => {
+            setFirstPage(false);
+          }}
+        />
+      </View>
+
+      <NavBar navigation={navigation} />
+    </View>
+  ) : (
+    <View style={[styles.container, { backgroundColor: "#FBDDDD" }]}>
+      <PageTitle text="Verify Phone Number" />
+
+      <View style={displayStyles.container}>
+        <Text style={displayStyles.text}>Enter your verification code</Text>
+        <View style={displayStyles.displayContainer}>
+          <Text style={displayStyles.phoneNumber}>{codeDisplay}</Text>
+        </View>
+      </View>
+
+      {numbers.map((row, index) => {
+        return (
+          <View key={index} style={keyStyles.numberPad}>
+            {row.map((number) => (
+              <TouchableOpacity
+                key={number}
+                onPress={() => setCode(code + number.toString())}
+                style={keyStyles.numberPadCell}
+              >
+                <Text style={keyStyles.number}>{number}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        );
+      })}
+      <View style={keyStyles.numberPad}>
+        <View style={{ width: 88 }}></View>
+        <TouchableOpacity
+          style={keyStyles.numberPadCell}
+          onPress={() => setCode(code + "0")}
+        >
+          <Text style={keyStyles.number}>0</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={keyStyles.numberPadCell}
+          onPress={() => setCode(code.substring(0, code.length - 1))}
+        >
+          <Icon name="backspace-outline" size={28} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.button}>
+        <Button
+          width={320}
+          height={55}
+          fontSize={22}
+          text={"Verify"}
+          onPress={() => {
+            navigation.navigate("ContactsPage");
+          }}
         />
       </View>
 

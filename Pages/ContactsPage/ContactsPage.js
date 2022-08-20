@@ -56,7 +56,7 @@ const data = [
 
 export default function ContactsPage({ navigation }) {
   const [expanded, setExpanded] = useState([]);
-  const [verified, setVerified] = useState(false);
+  const [verified, setVerified] = useState(true);
   useEffect(() => {
     if (!verified)
       Alert.alert(
@@ -71,7 +71,7 @@ export default function ContactsPage({ navigation }) {
           { text: "Verify", onPress: () => navigation.navigate("PhoneNumber") },
         ]
       );
-  }, []);
+  });
 
   return (
     <View style={styles.container}>
@@ -102,13 +102,13 @@ export default function ContactsPage({ navigation }) {
       <View style={styles.buttons}>
         <Button
           onPress={() => console.log("pressed!!!!!!")}
-          width={90}
+          width={120}
           height={55}
-          text="911"
+          text="Call 911"
           fontSize={20}
         />
         <Button
-          onPress={() => console.log("pressed!!!!!!")}
+          onPress={() => navigation.navigate("NewContact")}
           width={180}
           height={55}
           text="New Contact"
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     width: "90%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 55,
+    marginTop: 40,
   },
 });
 const contactStyles = StyleSheet.create({
