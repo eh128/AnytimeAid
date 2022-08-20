@@ -1,9 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+import chromedriver_binary
+import time
 
 driver = webdriver.Chrome()
 image = r"C:\Users\Steven\Documents\Screenshot 2022-05-22 101510.jpg"
+removed_words = ['<li>,a href="">', "</a></li>", "Strong", "</li>"]
 
 
 def send_image():
@@ -41,8 +43,7 @@ def return_instruction_page(keywords):
     for i in range(len(main_content)):
         content = main_content[i].get_attribute("innerHTML")
         instructions = instructions + content
-    # for element in main_content:
-    #     instructions = instructions + element
+
 
     return instructions
 
@@ -51,6 +52,8 @@ def main():
     button = send_image()
     keywords = return_keywords(image, button)
     instructions = return_instruction_page(keywords)
+    for regex in removed_words:
+        instructions = instructions.replace(regex, '')
     print(instructions)
 
 main()
