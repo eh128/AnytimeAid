@@ -1,11 +1,21 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import base64
+import io
 import chromedriver_binary
 import time
 
 driver = webdriver.Chrome()
 image = r"C:\Users\Steven\Documents\Screenshot 2022-05-22 101510.jpg"
 removed_words = ['<li>,a href="">', "</a></li>", "Strong", "</li>"]
+temp_path = "src/temp.jpg"
+
+def convert_uri_to_jpg(contents):
+    # Creates jpg of img
+    contents = contents.replace('data:image/png;base64,', '')
+    f = open("src/temp.jpg", "wb")
+    f.write(base64.b64decode(contents))
+    f.close()
 
 
 def send_image():
@@ -47,7 +57,6 @@ def return_instruction_page(keywords):
     for i in range(len(main_content)):
         content = main_content[i].get_attribute("innerHTML")
         instructions = instructions + content
-
 
     return instructions
 
