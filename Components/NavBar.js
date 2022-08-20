@@ -43,7 +43,7 @@ export default function NavBar({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 70,
+    bottom: 40,
     flexDirection: "row",
     width: "90%",
     justifyContent: "space-between",

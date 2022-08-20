@@ -10,12 +10,13 @@ const PageTitle = ({ text }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 70,
+    marginTop: 90,
     justifyContent: "flex-start",
     width: "85%",
   },
   text: {
-    fontSize: 28,
+    fontWeight: "bold",
+    fontSize: 24,
   },
 });
 

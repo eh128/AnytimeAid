@@ -1,12 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-export default function Button({ onPress, width, height, text }) {
+export default function Button({ onPress, width, height, text, fontSize }) {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[styles.container, { width, height }]}
     >
-      <Text style={styles.text}>{text}</Text>
+      <Text style={[styles.text, { fontSize: fontSize ? fontSize : 18 }]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -20,7 +22,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 24,
     fontWeight: "bold",
   },
 });
