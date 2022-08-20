@@ -33,9 +33,13 @@ def return_instruction_page(keywords):
     search_field.send_keys(Keys.ENTER)
 
     # Only use Mayo Clinic, if it doesn't work then type in keywords
-    first_element = driver.find_element_by_id('search')
-    first_link = first_element.find_element_by_tag_name('a')
-    first_link.click()
+    try:
+        first_element = driver.find_element_by_id('search')
+        first_link = first_element.find_element_by_tag_name('a')
+        first_link.click()
+
+    except:
+        return "Can't find the Mayo Clinic Link"
 
     # Find element by ID
     main_content = driver.find_elements_by_tag_name('ol')
@@ -48,7 +52,7 @@ def return_instruction_page(keywords):
     return instructions
 
 
-def main():
+def get_instructions():
     button = send_image()
     keywords = return_keywords(image, button)
     instructions = return_instruction_page(keywords)
@@ -56,7 +60,6 @@ def main():
         instructions = instructions.replace(regex, '')
     print(instructions)
 
-main()
 
 
 
