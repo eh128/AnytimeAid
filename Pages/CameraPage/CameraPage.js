@@ -1,11 +1,11 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import NavBar from "../../Components/NavBar";
 
-export default function App() {
+export default function CameraPage({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>Camera Page</Text>
-      <StatusBar style="auto" />
+      <NavBar navigation={navigation} />
     </View>
   );
 }
