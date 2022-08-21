@@ -17,7 +17,7 @@ const NewContact = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
 
-  const submitContacts = fetch('http://127.0.0.1:5000/emergency-contacts-create', {
+  const submitContacts = fetch('https://anytime-aid.herokuapp.com/emergency-contacts-create', {
     method: 'POST',
     headers: {
         Accept: 'application/json',

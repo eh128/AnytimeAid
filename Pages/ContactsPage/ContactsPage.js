@@ -37,14 +37,14 @@ const sectionContent = (section) => {
   );
 };
 
-const getContacts = fetch('http://127.0.0.1:5000/emergency-contacts-fetch-user-info', {
+const getContacts = fetch('https://anytime-aid.herokuapp.com/emergency-contacts-fetch-user-info', {
   method: 'POST',
   headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-      "phone number": "23409853",
+      "phone number": "4777",
   })
   }).then
   ((response) => response.json()).then((json) => {
