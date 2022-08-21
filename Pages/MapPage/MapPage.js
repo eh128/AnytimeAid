@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, View, Dimensions, ActivityIndicator } from "react-native";
 import NavBar from "../../Components/NavBar";
 import React, { useState, useEffect } from "react";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
