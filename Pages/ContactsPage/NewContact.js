@@ -46,6 +46,8 @@ const NewContact = ({ navigation }) => {
           <View style={styles.fieldContainer}>
             <Text style={styles.label}>Address</Text>
             <TextInput
+              value={address}
+              onChangeText={(text) => setAddress(text)}
               placeholder="eg. 4492 Main Street, Toronto, Ontario"
               style={[styles.input, styles.address]}
               multiline={true}
