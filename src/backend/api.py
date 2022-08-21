@@ -21,43 +21,48 @@ def instructions():
 
 
 @app.route('/emergency-contacts-create', methods=["POST"])
-def emergency_contacts():
+def emergency_contacts_create():
     # I expect the input data to be in a JSON format
     req = request.json
     create_new_user(req)
-    return "successfully stored"
+    ret = {
+        "success": "success"
+    }
+    return
 
 
 @app.route('/emergency-contacts-update', methods=["POST"])
-def emergency_contacts():
+def emergency_contacts_update():
     # I expect the input data to be in a JSON format
     req = request.json
     update_user_info(req)
     return "successfully stored"
 
 
-@app.route('/emergency-contacts-fetch-info', methods=["GET"])
-def emergency_contacts():
+@app.route('/emergency-contacts-fetch-info', methods=["POST"])
+def emergency_contacts_fetch():
     # I expect the input data to be in a JSON format
     req = request.json
-    req_name = req["name"]
-    user_info = get_user_info(req_name)
-
-    return user_info
+    req_phone_number = req["telephone number"]
+    user_info = get_user_info(req_phone_number)
+    info = {
+        "user_info": user_info
+    }
+    return info
 
 
 @app.route('/emergency-contacts-delete-user', methods=["GET"])
-def emergency_contacts():
+def emergency_contacts_delete():
     # I expect the input data to be in a JSON format
     req = request.json
-    req_name = req["name"]
-    delete_user(req_name)
+    req_phone_number = req["telephone number"]
+    delete_user(req_phone_number)
 
     return "Successfully deleted user info"
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
 
 
 

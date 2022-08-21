@@ -13,28 +13,18 @@ export default function NavBar({ navigation }) {
         <Text style={styles.navText}>Contacts</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate("ContactsPage")}
+        onPress={() => navigation.navigate("CameraPage")}
         style={[styles.navButton, { width: "36%" }]}
       >
         <Icon name="camerao" size={30} />
-        <Text
-          style={styles.navText}
-          onPress={() => navigation.navigate("CameraPage")}
-        >
-          Camera
-        </Text>
+        <Text style={styles.navText}>Camera</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate("ContactsPage")}
+        onPress={() => navigation.navigate("MapPage")}
         style={[styles.navButton, { borderLeftWidth: 2, width: "32%" }]}
       >
         <Ionicons name="location-outline" size={30} />
-        <Text
-          style={styles.navText}
-          onPress={() => navigation.navigate("MapPage")}
-        >
-          Map
-        </Text>
+        <Text style={styles.navText}>Map</Text>
       </TouchableOpacity>
     </View>
   );
@@ -43,12 +33,13 @@ export default function NavBar({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 70,
+    bottom: 40,
     flexDirection: "row",
     width: "90%",
     justifyContent: "space-between",
     borderWidth: 2,
     borderRadius: 20,
+    backgroundColor: "white",
   },
   navButton: {
     paddingVertical: 20,

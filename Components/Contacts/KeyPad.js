@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-const PageTitle = ({ text }) => {
+const KeyPad = ({ text }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{text}</Text>
@@ -10,14 +10,11 @@ const PageTitle = ({ text }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 90,
-    justifyContent: "flex-start",
-    width: "85%",
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: 24,
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
-export default PageTitle;
+export default KeyPad;
