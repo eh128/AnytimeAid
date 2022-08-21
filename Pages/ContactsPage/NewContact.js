@@ -52,6 +52,14 @@ const NewContact = ({ navigation }) => {
             />
           </View>
         </View>
+        <View style={{ marginTop: -40 }}>
+          <Button
+            width={300}
+            height={60}
+            text="Create New Contact"
+            onPress={() => console.log("submit")}
+          />
+        </View>
         <View style={styles.buttons}>
           <Button
             onPress={() => {
@@ -86,7 +94,7 @@ const styles = StyleSheet.create({
     width: "90%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 140,
+    marginTop: 120,
   },
   fieldContainer: {
     width: "85%",
