@@ -20,7 +20,7 @@ def instructions():
         return result
 
 
-@app.route('/emergency-contacts-create', methods=["POST"])
+@app.route('/user-create', methods=["POST"])
 def emergency_contacts_create():
     # I expect the input data to be in a JSON format
     req = request.json
@@ -39,11 +39,11 @@ def emergency_contacts_update():
     return "successfully stored"
 
 
-@app.route('/emergency-contacts-fetch-info', methods=["POST"])
+@app.route('/emergency-contacts-fetch-user-info', methods=["POST"])
 def emergency_contacts_fetch():
     # I expect the input data to be in a JSON format
     req = request.json
-    req_phone_number = req["telephone number"]
+    req_phone_number = req["phone number"]
     user_info = get_user_info(req_phone_number)
     info = {
         "user_info": user_info
@@ -63,9 +63,3 @@ def emergency_contacts_delete():
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
-
-
-
-
-
-

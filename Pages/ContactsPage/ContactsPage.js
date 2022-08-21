@@ -4,8 +4,8 @@ import {
   Text,
   View,
   Alert,
-  ImageBackground,
   Image,
+  TouchableHighlight,
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import NavBar from "../../Components/NavBar";
@@ -36,8 +36,12 @@ const sectionHeader = (section, _, isActive) => {
         <Text style={contactStyles.name}>{section.name}</Text>
       </View>
       <View style={contactStyles.right}>
-        <AntIcon name="edit" size={30} />
-        <FontAwesome name="trash-o" size={30} />
+        <AntIcon name="edit" size={30} onPress={() => console.log("edit")} />
+        <FontAwesome
+          name="trash-o"
+          size={30}
+          onPress={() => console.log("delete")}
+        />
       </View>
     </View>
   );
@@ -46,48 +50,74 @@ const sectionContent = (section) => {
   return (
     <View style={contactStyles.content}>
       <Text style={[contactStyles.label]}>Phone Number</Text>
-      <Text style={contactStyles.text}>{section.phoneNumber}</Text>
+      <TouchableHighlight
+        onPress={() => {
+          call({
+            number: section.phoneNumber,
+            prompt: false,
+            skipCanOpen: true,
+          }).catch((error) => console.log(error));
+        }}
+        style={{ width: 140, alignSelf: "flex-end" }}
+        underlayColor={pink}
+      >
+        <Text style={contactStyles.text}>
+          {"(" +
+            section.phoneNumber.slice(0, 3) +
+            ") " +
+            section.phoneNumber.slice(3, 6) +
+            "-" +
+            section.phoneNumber.slice(6, 10)}
+        </Text>
+      </TouchableHighlight>
       <Text style={[contactStyles.label, { marginTop: 5 }]}>Address</Text>
       <Text style={contactStyles.text}>{section.address}</Text>
     </View>
   );
 };
 
-const getContacts = fetch('https://anytime-aid.herokuapp.com/emergency-contacts-fetch-user-info', {
-  method: 'POST',
-  headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-      "phone number": "4777",
-  })
-  }).then
-  ((response) => response.json()).then((json) => {
-      return [json.user_info]
+const getContacts = fetch(
+  "https://anytime-aid.herokuapp.com/emergency-contacts-fetch-user-info",
+  {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "phone number": "+12222222222",
+    }),
+  }
+)
+  .then((response) => response.json())
+  .then((json) => {
+    setContacts(json.user_info);
+    console.log(json.user_info);
+    return;
   });
 
 const data = [
   {
-    name: "Tom",
-    phoneNumber: "+1 (222) 333-4444",
-    address: "8893 smt street, Toronto ON",
+    name: "Steven Wang",
+    phoneNumber: "7805569823",
+    address: "8893 Main Street, Toronto Ontario",
   },
   {
-    name: "James",
-    phoneNumber: "+12223334444",
-    address: "8893 smt street, Toronto ON",
+    name: "James Luck",
+    phoneNumber: "2365589982",
+    address: "60 East 20th Avenue, Edmonton Alberta",
   },
   {
-    name: "Kate",
-    phoneNumber: "+12223334444",
-    address: "8893 smt street, Toronto ON",
+    name: "Kate Smith",
+    phoneNumber: "4569823621",
+    address: "8893 Lane Street, Waterloo Ontario",
   },
 ];
 
 export default function ContactsPage({ navigation }) {
   const [expanded, setExpanded] = useState([]);
   const [verified, setVerified] = useState(false);
+  const [contacts, setContacts] = useState([]);
   useEffect(() => {
     if (!verified)
       Alert.alert(
@@ -108,7 +138,7 @@ export default function ContactsPage({ navigation }) {
           },
         ]
       );
-  });
+  }, []);
 
   return (
     <View style={[styles.container, { backgroundColor: pink }]}>
@@ -121,7 +151,7 @@ export default function ContactsPage({ navigation }) {
         }}
       >
         <Accordion
-          sections={getContacts}
+          sections={data}
           activeSections={expanded}
           renderHeader={sectionHeader}
           renderContent={sectionContent}
@@ -142,12 +172,18 @@ export default function ContactsPage({ navigation }) {
           width={120}
           height={55}
           text="Call 911"
+          fontColor={"black"}
+          fontWeight=""
+          color={"#F4F4F4"}
           fontSize={20}
         />
         <Button
           onPress={() => navigation.navigate("NewContact")}
           width={180}
           height={55}
+          fontColor={"black"}
+          color={"#F4F4F4"}
+          fontWeight=""
           text="New Contact"
         />
       </View>

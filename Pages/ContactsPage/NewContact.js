@@ -12,31 +12,38 @@ import PageTitle from "../../Components/Contacts/PageTitle";
 import NavBar from "../../Components/NavBar";
 import Button from "../../Components/Button";
 import { pink } from "../../Colors";
+import call from "react-native-phone-call";
+
+const args = {
+  number: "7783238985",
+  prompt: false,
+  skipCanOpen: true,
+};
 
 const NewContact = ({ navigation }) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
 
-  const submitContacts = fetch(
-    "https://anytime-aid.herokuapp.com/emergency-contacts-create",
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        "phone number": phoneNumber,
-        address: address,
-      }),
-    }
-  )
-    .then((response) => response.json())
-    .then((json) => {
-      return json.success;
-    });
+  // const submitContacts = () => {
+  //   fetch("https://anytime-aid.herokuapp.com/emergency-contacts-create", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name: name,
+  //       "phone number": phoneNumber,
+  //       address: address,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       navigation.navigate("ContactsPage");
+  //       return json.success;
+  //     });
+  // };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -82,24 +89,27 @@ const NewContact = ({ navigation }) => {
             width={300}
             height={60}
             text="Create New Contact"
-            onPress={submitContacts}
+            onPress={() => navigation.navigate("ContactsPage")}
           />
         </View>
         <View style={styles.buttons}>
           <Button
-            onPress={() => {
-              console.log("call 911");
-              //call
-            }}
+            onPress={() => call(args).catch(console.log("error"))}
             width={120}
             height={55}
             text="Call 911"
+            fontColor={"black"}
+            fontWeight=""
+            color="#F4F4F4"
             fontSize={20}
           />
           <Button
             onPress={() => navigation.navigate("ContactsPage")}
             width={180}
             height={55}
+            color="#F4F4F4"
+            fontColor={"black"}
+            fontWeight=""
             text="See Contacts"
           />
         </View>
