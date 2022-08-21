@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import NavBar from "../../Components/NavBar";
 import PageTitle from "../../Components/Contacts/PageTitle";
 import Icon from "react-native-vector-icons/Ionicons";
 import Button from "../../Components/Button";
+import { pink } from "../../Colors";
+import ImageBack from "../../Components/Image";
 
 const numbers = [
   [1, 2, 3],
@@ -42,7 +44,7 @@ export default function PhoneNumber({ navigation }) {
   }, [phoneNumber]);
 
   return firstPage ? (
-    <View style={[styles.container, { backgroundColor: "#FBDDDD" }]}>
+    <View style={[styles.container, { backgroundColor: pink }]}>
       <PageTitle text="Verify Phone Number" />
 
       <View style={displayStyles.container}>
@@ -96,7 +98,7 @@ export default function PhoneNumber({ navigation }) {
           }}
         />
       </View>
-
+      <ImageBack />
       <NavBar navigation={navigation} />
     </View>
   ) : (
@@ -152,7 +154,7 @@ export default function PhoneNumber({ navigation }) {
           }}
         />
       </View>
-
+      <ImageBack />
       <NavBar navigation={navigation} />
     </View>
   );
@@ -161,7 +163,6 @@ export default function PhoneNumber({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
   },
   button: {
