@@ -11,10 +11,28 @@ import PageTitle from "../../Components/Contacts/PageTitle";
 import NavBar from "../../Components/NavBar";
 import Button from "../../Components/Button";
 
+
 const NewContact = ({ navigation }) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+
+  const submitContacts = fetch('http://127.0.0.1:5000/emergency-contacts-create', {
+    method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        "name": name,
+        "phone number": phoneNumber,
+        "address": address
+    })
+    }).then
+    ((response) => response.json()).then((json) => {
+        return json.success
+    });
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -59,7 +77,7 @@ const NewContact = ({ navigation }) => {
             width={300}
             height={60}
             text="Create New Contact"
-            onPress={() => console.log("submit")}
+            onPress={() => {submitContacts}}
           />
         </View>
         <View style={styles.buttons}>

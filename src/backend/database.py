@@ -45,6 +45,7 @@ def create_new_user(user_info):
 
 def get_user_info(user_phone_number):
     user_info = collection.find_one({"user.phone number": { "$eq": user_phone_number}})
+    contact_info = user_info["Contact List"]["Contacts"]
     return user_info
 
 

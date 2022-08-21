@@ -36,6 +36,22 @@ const sectionContent = (section) => {
     </View>
   );
 };
+
+const getContacts = fetch('http://127.0.0.1:5000/emergency-contacts-fetch-user-info', {
+  method: 'POST',
+  headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+      "phone number": "23409853",
+  })
+  }).then
+  ((response) => response.json()).then((json) => {
+      return [json.user_info]
+  });
+
+
 const data = [
   {
     name: "Tom",
@@ -84,7 +100,7 @@ export default function ContactsPage({ navigation }) {
         }}
       >
         <Accordion
-          sections={data}
+          sections={getContacts}
           activeSections={expanded}
           renderHeader={sectionHeader}
           renderContent={sectionContent}
