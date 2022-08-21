@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  ImageBackground,
+  Image,
+} from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import NavBar from "../../Components/NavBar";
 import Button from "../../Components/Button";
@@ -7,6 +14,8 @@ import PageTitle from "../../Components/Contacts/PageTitle";
 import Accordion from "react-native-collapsible/Accordion";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntIcon from "react-native-vector-icons/AntDesign";
+import { pink } from "../../Colors";
+import ImageBack from "../../Components/Image";
 
 const sectionHeader = (section, _, isActive) => {
   return (
@@ -37,20 +46,23 @@ const sectionContent = (section) => {
   );
 };
 
-const getContacts = fetch('http://127.0.0.1:5000/emergency-contacts-fetch-user-info', {
-  method: 'POST',
-  headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-      "phone number": "23409853",
-  })
-  }).then
-  ((response) => response.json()).then((json) => {
-      return [json.user_info]
+const getContacts = fetch(
+  "http://127.0.0.1:5000/emergency-contacts-fetch-user-info",
+  {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "phone number": "2340985311",
+    }),
+  }
+)
+  .then((response) => response.json())
+  .then((json) => {
+    return [json.user_info];
   });
-
 
 const data = [
   {
@@ -72,7 +84,7 @@ const data = [
 
 export default function ContactsPage({ navigation }) {
   const [expanded, setExpanded] = useState([]);
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
   useEffect(() => {
     if (!verified)
       Alert.alert(
@@ -84,13 +96,19 @@ export default function ContactsPage({ navigation }) {
             onPress: () => navigation.navigate("CameraPage"),
             style: "cancel",
           },
-          { text: "Verify", onPress: () => navigation.navigate("PhoneNumber") },
+          {
+            text: "Verify",
+            onPress: () => {
+              setVerified(true);
+              navigation.navigate("PhoneNumber");
+            },
+          },
         ]
       );
   });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: pink }]}>
       <PageTitle text="Emergency Contacts" />
       <View
         style={{
@@ -131,6 +149,7 @@ export default function ContactsPage({ navigation }) {
         />
       </View>
       <NavBar navigation={navigation} />
+      <ImageBack />
     </View>
   );
 }

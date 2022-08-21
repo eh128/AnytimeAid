@@ -5,13 +5,16 @@ import {
   Dimensions,
   ActivityIndicator,
   TouchableWithoutFeedback,
+  Image,
 } from "react-native";
+import ImageBack from "../../Components/Image";
 import NavBar from "../../Components/NavBar";
 import React, { useState, useEffect } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Key } from "../../key.js";
+import { pink } from "../../Colors";
 
 export default function MapPage({ navigation }) {
   const [location, setLocation] = useState(null);
@@ -28,7 +31,6 @@ export default function MapPage({ navigation }) {
       let place = (
         await Location.geocodeAsync("2727 E 12th Ave, Vancouver")
       )[0];
-      console.log(place);
       setPin(place);
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
@@ -47,9 +49,16 @@ export default function MapPage({ navigation }) {
 
   if (!location) {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: pink,
+        }}
+      >
         <ActivityIndicator size="large" />
-
+        <ImageBack />
         <NavBar navigation={navigation} />
       </View>
     );
@@ -57,7 +66,7 @@ export default function MapPage({ navigation }) {
 
   return (
     <TouchableWithoutFeedback>
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: pink }]}>
         <MapView
           style={styles.map}
           provider={PROVIDER_GOOGLE}

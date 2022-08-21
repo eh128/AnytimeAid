@@ -7,35 +7,40 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import ImageBack from "../../Components/Image";
 import PageTitle from "../../Components/Contacts/PageTitle";
 import NavBar from "../../Components/NavBar";
 import Button from "../../Components/Button";
-
+import { pink } from "../../Colors";
 
 const NewContact = ({ navigation }) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
 
-  const submitContacts = fetch('http://127.0.0.1:5000/emergency-contacts-create', {
-    method: 'POST',
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        "name": name,
+  const submitContacts = fetch(
+    "http://127.0.0.1:5000/emergency-contacts-create",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
         "phone number": phoneNumber,
-        "address": address
-    })
-    }).then
-    ((response) => response.json()).then((json) => {
-        return json.success
+        address: address,
+      }),
+    }
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      return json.success;
     });
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: pink }]}>
         <PageTitle text={"New Emergency Contact"} />
         <View
           style={{ width: "100%", alignItems: "center", marginVertical: 50 }}
@@ -77,7 +82,9 @@ const NewContact = ({ navigation }) => {
             width={300}
             height={60}
             text="Create New Contact"
-            onPress={() => {submitContacts}}
+            onPress={() => {
+              submitContacts;
+            }}
           />
         </View>
         <View style={styles.buttons}>
