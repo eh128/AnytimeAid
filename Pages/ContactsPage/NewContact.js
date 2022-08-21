@@ -18,14 +18,16 @@ const NewContact = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
 
-  const submitContacts = fetch('https://anytime-aid.herokuapp.com/emergency-contacts-create', {
-    method: 'POST',
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        "name": name,
+  const submitContacts = fetch(
+    "https://anytime-aid.herokuapp.com/emergency-contacts-create",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
         "phone number": phoneNumber,
         address: address,
       }),
@@ -80,9 +82,7 @@ const NewContact = ({ navigation }) => {
             width={300}
             height={60}
             text="Create New Contact"
-            onPress={() => {
-              submitContacts;
-            }}
+            onPress={submitContacts}
           />
         </View>
         <View style={styles.buttons}>
