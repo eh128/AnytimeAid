@@ -16,6 +16,13 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import { pink } from "../../Colors";
 import ImageBack from "../../Components/Image";
+import call from "react-native-phone-call";
+
+const args = {
+  number: "7783238985",
+  prompt: false,
+  skipCanOpen: true,
+};
 
 const sectionHeader = (section, _, isActive) => {
   return (
@@ -135,7 +142,7 @@ export default function ContactsPage({ navigation }) {
       </View>
       <View style={styles.buttons}>
         <Button
-          onPress={() => console.log("pressed!!!!!!")}
+          onPress={() => call(args).catch(console.log("error"))}
           width={120}
           height={55}
           text="Call 911"
