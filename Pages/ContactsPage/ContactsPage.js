@@ -146,7 +146,7 @@ export default function ContactsPage({ navigation }) {
       <View
         style={{
           width: "83%",
-          marginTop: 25,
+          marginTop: 35,
           height: "55%",
         }}
       >
