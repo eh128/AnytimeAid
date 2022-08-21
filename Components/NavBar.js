@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderWidth: 2,
     borderRadius: 20,
+    backgroundColor: "white",
   },
   navButton: {
     paddingVertical: 20,
