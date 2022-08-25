@@ -1,11 +1,28 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
+import {
+  FlatList,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import Constants from "expo-constants";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "../../Components/CameraButton";
 import NavBar from "../../Components/NavBar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import BottomSheet from "@gorhom/bottom-sheet";
+import RBSheet from "react-native-raw-bottom-sheet";
+import HyperLink from "react-native-hyperlink";
 
 export default function CameraPage({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -13,6 +30,16 @@ export default function CameraPage({ navigation }) {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const cameraRef = useRef(null);
   let [imageURI, setImageURI] = useState(null);
+  const [isToggled, setIsToggled] = useState(false);
+
+  // const bottomSheetRef = useRef<BottomSheet>(null);
+
+  // const snapPoints = useMemo(() => ['5%', '50%'], []);
+
+  // const handleSheetChanges = useCallback((index: number) => {
+  //   console.log('handleSheetChanges', index);
+  // }, []);
+  const refRBSheet = useRef();
 
   useEffect(() => {
     (async () => {
@@ -24,14 +51,12 @@ export default function CameraPage({ navigation }) {
 
   const takePicture = async () => {
     if (cameraRef) {
-  
-        let photo = await cameraRef.current.takePictureAsync({base64:true});
-        console.log(photo.base64);
-        //console.log(photo);
-        setImage(photo.uri);
-        var photoURI = "data:image/jpg;base64,"+ photo.base64
-        setImageURI(photoURI);
-
+      let photo = await cameraRef.current.takePictureAsync({ base64: true });
+      console.log(photo.base64);
+      //console.log(photo);
+      setImage(photo.uri);
+      var photoURI = "data:image/jpg;base64," + photo.base64;
+      setImageURI(photoURI);
     }
   };
 
@@ -40,22 +65,25 @@ export default function CameraPage({ navigation }) {
       let savePicture = "";
       try {
         console.log(imageURI);
-        alert('Picture processed!');
+        alert("Picture processed!");
+        setIsToggled(true);
         setImage(null);
-        console.log('saved successfully');
+        console.log("saved successfully");
         await fetch("http://127.0.0.1:5000/instructions", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(imageURI),
-        }).then((response) => response.json()).then((json) => {
-          savePicture = json.savePicture
-          console.log("logged");
-      });
+        })
+          .then((response) => response.json())
+          .then((json) => {
+            savePicture = json.savePicture;
+            console.log("logged");
+          });
+        setWindow(true);
       } catch (error) {
         console.log(error);
       }
     }
-   
   };
 
   if (hasCameraPermission === false) {
@@ -63,7 +91,7 @@ export default function CameraPage({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       {!image ? (
         <Camera style={styles.camera} type={type} ref={cameraRef}>
           <View
@@ -105,7 +133,10 @@ export default function CameraPage({ navigation }) {
             />
             <Button
               title="Press to process"
-              onPress={savePicture}
+              onPress={() => {
+                savePicture();
+                refRBSheet.current.open();
+              }}
               icon="check"
             />
           </View>
@@ -114,6 +145,32 @@ export default function CameraPage({ navigation }) {
         )}
       </View>
       <NavBar navigation={navigation} />
+    
+
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent",
+          },
+          draggableIcon: {
+            backgroundColor: "#000",
+          },
+        }}
+      >
+        <View style={styles.container}>
+          <Text style={styles.baseText}>
+            Instructions on treating your wound
+          </Text>
+          <FlatList
+            renderItem={({ item }) => (
+              <Text style={styles.item}>{item.key}</Text>
+            )}
+          />
+        </View>
+      </RBSheet>
     </View>
   );
 }
@@ -126,6 +183,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     padding: 2,
     alignItems: "center",
+  },
+  baseText: {
+    fontWeight: "bold",
+    fontSize: 20,
+    marginBottom: 20,
   },
   controls: {
     flex: 0.5,
@@ -153,4 +215,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
