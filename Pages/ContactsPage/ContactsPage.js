@@ -19,7 +19,7 @@ import ImageBack from "../../Components/Image";
 import call from "react-native-phone-call";
 
 const args = {
-  number: "7783238985",
+  number: "911",
   prompt: false,
   skipCanOpen: true,
 };

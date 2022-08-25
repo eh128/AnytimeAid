@@ -10,6 +10,7 @@ image = r"C:\Users\Steven\Documents\Screenshot 2022-05-22 101510.jpg"
 removed_words = ['<li>,a href="">', "</a></li>", "Strong", "</li>"]
 temp_path = "src/temp.jpg"
 
+
 def convert_uri_to_jpg(contents):
     # Creates jpg of img
     contents = contents.replace('data:image/png;base64,', '')
@@ -21,7 +22,8 @@ def convert_uri_to_jpg(contents):
 def send_image():
     driver.implicitly_wait(10)
     driver.get('https://images.google.com/')
-    image_icon = driver.find_element_by_xpath("//div[@aria-label='Search by image']")
+    image_icon = driver.find_element_by_xpath(
+        "//div[@aria-label='Search by image']")
     image_icon.click()
     button = driver.find_element_by_name("encoded_image")
     driver.implicitly_wait(10)
@@ -31,7 +33,8 @@ def send_image():
 def return_keywords(image_dir, button):
     button.send_keys(image_dir)
     driver.find_element_by_xpath("//div[@aria-label='Visual matches']")
-    first_match = driver.find_element_by_xpath("//div[@dir='ltr']").get_attribute("innerHTML")
+    first_match = driver.find_element_by_xpath(
+        "//div[@dir='ltr']").get_attribute("innerHTML")
     print(first_match)
     return first_match
 
@@ -39,7 +42,8 @@ def return_keywords(image_dir, button):
 def return_instruction_page(keywords):
     driver.get('https://google.com/')
     search_field = driver.find_element_by_name('q')
-    search_field.send_keys(keywords + " instruction how to treat " + "site:mayoclinic.org")
+    search_field.send_keys(
+        keywords + " instruction how to treat " + "site:mayoclinic.org")
     search_field.send_keys(Keys.ENTER)
 
     # Only use Mayo Clinic, if it doesn't work then type in keywords
@@ -56,7 +60,7 @@ def return_instruction_page(keywords):
     instructions = ""
     for i in range(len(main_content)):
         content = main_content[i].get_attribute("innerHTML")
-        instructions = instructions + content
+        instructions += content
 
     return instructions
 
@@ -70,9 +74,5 @@ def get_instructions():
     driver.close()
     print(instructions)
 
+
 get_instructions()
-
-
-
-
-
